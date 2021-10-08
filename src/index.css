@@ -16,7 +16,7 @@
 }
 
 .quiz {
-  width: 600px;
+  min-width: 600px;
   background: #ffffff;
   border-radius: 12px;
   min-height: 180px;
@@ -32,7 +32,7 @@
 }
 
 .question_box {
-  flex: 0 0 60%;
+  flex: 0 0 50%;
   padding-right: 30px;
 }
 
@@ -49,6 +49,7 @@
 
 .question_text {
   margin-bottom: 20px;
+  font-size: 20px;
 }
 
 .answer_box {
@@ -90,4 +91,21 @@ button:hover {
 
 .refresh_btn {
   max-width: 200px;
+}
+
+button {
+  border: 3px solid transparent;
+}
+
+.answer_box button.selected {
+  border: 3px solid #fff6a6;
+}
+
+.btn_confirm {
+  margin-top: 20px;
+  background: #4eb120;
+}
+
+.multiple_hint {
+  color: #c72323;
 }

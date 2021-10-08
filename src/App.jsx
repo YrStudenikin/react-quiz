@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import questions from "./q.json";
+import AnswerBox from "./AnswerBox";
 
 function App() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
 
-    const handleAnswerClick = isCorrect => {
+    const handleAnswerClick = answers => {
+        let isCorrect = !answers.some(item => !item.correct);
         isCorrect && setScore(score + 1);
 
         const nextQuestion = currentQuestion + 1;
@@ -24,6 +26,8 @@ function App() {
         setShowScore(false);
     };
 
+    const isMultiple = questions[currentQuestion].answers.filter(item => item.correct).length > 1;
+
     return (
         <div className="app">
             <div className="quiz">
@@ -38,21 +42,19 @@ function App() {
                                 <div className="question_text">
                                     {questions[currentQuestion].question}
                                 </div>
-                            </div>
-                            <div className="answer_box">
                                 {
-                                    questions[currentQuestion].answers.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => {
-                                                handleAnswerClick(item.correct)
-                                            }}
-                                        >
-                                            {item.answer}
-                                        </button>
-                                    ))
+                                    isMultiple &&
+                                    <div className="multiple_hint">
+                                        Выберите несколько вариантов ответа
+                                    </div>
                                 }
                             </div>
+                            <AnswerBox
+                                key={questions[currentQuestion].question}
+                                questions={questions[currentQuestion].answers}
+                                handleSubmit={handleAnswerClick}
+                                isMultiple={isMultiple}
+                            />
                         </div>
                         :
                         <div className="quiz_show_score">
